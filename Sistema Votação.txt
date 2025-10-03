@@ -1,0 +1,10 @@
+02/10
+- Criação do Banco;
+- Criação das procedures (CRUD);
+- Criação do projeto aspnet, inclusão da depenica do Mysql;
+- Criação a conexão com banco;
+- Criação das models (Eleitores, Candidatos, Usuários, Votos);
+
+
+
+ 
