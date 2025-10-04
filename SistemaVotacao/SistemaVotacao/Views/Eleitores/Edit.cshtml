@@ -1,0 +1,67 @@
+﻿@model SistemaVotacao.Models.Eleitores
+
+@{
+    ViewData["Title"] = "Editar Eleitor";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-warning text-white">
+                    <h4 class="mb-0"><i class="fas fa-user-edit"></i> @ViewData["Title"]</h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-primary">
+                        <i class="fas fa-info-circle"></i>
+                        Editando eleitor: <strong>@Model.nome</strong> (ID: @Model.id_eleitor)
+                    </div>
+
+                    <form asp-action="Edit" method="post">
+                        <input type="hidden" asp-for="id_eleitor" />
+
+                        <div class="mb-3">
+                            <label asp-for="nome" class="form-label"></label>
+                            <input asp-for="nome" class="form-control" />
+                            <span asp-validation-for="nome" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="titulo_eleitoral" class="form-label"></label>
+                            <input asp-for="titulo_eleitoral" class="form-control" />
+                            <span asp-validation-for="titulo_eleitoral" class="text-danger"></span>
+                        </div>
+
+                        <div class="card mb-3">
+                            <div class="card-body bg-light">
+                                <h6><i class="fas fa-history"></i> Informações do Cadastro</h6>
+                                <small class="text-muted">
+                                    Cadastrado em: @Model.criado_em.ToString("dd/MM/yyyy 'às' HH:mm")
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="@Url.Action("Index", "Eleitores")" class="btn btn-secondary me-md-2">
+                                <i class="fas fa-times"></i> Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-warning me-md-2">
+                                <i class="fas fa-save"></i> Atualizar Eleitor
+                            </button>
+                            <a href="@Url.Action("Details", "Eleitores", new { id = Model.id_eleitor })"
+                               class="btn btn-info">
+                                <i class="fas fa-eye"></i> Ver Detalhes
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

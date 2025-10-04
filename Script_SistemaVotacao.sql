@@ -72,6 +72,14 @@ INSERT INTO Eleitores (nome, titulo_eleitoral) VALUES
 ('Ana Costa', '321654987321'),
 ('Carlos Souza', '789123456789');
 
+-- Inserts de Eleitores
+INSERT INTO Candidatos (nome, cpf, titulo_eleitoral, foto)
+VALUES 
+('João da Silva', '123.456.789-00', '123456789010', ''),
+('Maria Oliveira', '987.654.321-00', '987654321097', ''),
+('Carlos Mendes', '111.222.333-44', '111222333441', ''),
+('Ana Souza', '555.666.777-88', '555666777881', ''),
+('Fernanda Lima', '999.888.777-66', '999888777661', '');
 
 
 

@@ -1,31 +1,19 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using SistemaVotacao.Models;
+using SistemaVotacao.Filters;
 
-namespace SistemaVotacao.Controllers;
-
-public class HomeController : Controller
+namespace SistemaVotacao.Controllers
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    [SessionAuthorize]
+    public class HomeController : Controller
     {
-        _logger = logger;
-    }
+        // Dashboard - Acesso para todos os usuários logados
+        public IActionResult Index()
+        {
+            var userRole = HttpContext.Session.GetString(Autenticacao.SessionKeys.UserRole);
+            ViewBag.UserRole = userRole;
+            ViewBag.UserName = HttpContext.Session.GetString(Autenticacao.SessionKeys.UserName);
 
-    public IActionResult Index()
-    {
-        return View();
-    }
-
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
+        }
     }
 }

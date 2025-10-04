@@ -1,0 +1,128 @@
+﻿@model SistemaVotacao.Models.Usuario
+
+@{
+    ViewData["Title"] = "Editar Usuário";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-warning text-white">
+                    <h4 class="mb-0"><i class="fas fa-user-edit"></i> @ViewData["Title"]</h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-primary">
+                        <i class="fas fa-info-circle"></i>
+                        Editando usuário: <strong>@Model.nome</strong> (ID: @Model.id)
+                    </div>
+
+                    <form asp-action="Edit" method="post">
+                        <input type="hidden" asp-for="id" />
+                        <input type="hidden" asp-for="criado_em" />
+                        <input type="hidden" asp-for="titulo_eleitoral" />
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="nome" class="form-label">
+                                <i class="fas fa-user"></i> Nome Completo
+                            </label>
+                            <input asp-for="nome" class="form-control"
+                                   placeholder="Digite o nome completo do usuário" />
+                            <span asp-validation-for="nome" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="fas fa-id-card"></i> Título Eleitoral
+                            </label>
+                            <input class="form-control" value="@Model.titulo_eleitoral" readonly />
+                            <div class="form-text">O título eleitoral não pode ser alterado.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="senha_hash" class="form-label">
+                                <i class="fas fa-lock"></i> Nova Senha
+                            </label>
+                            <input asp-for="senha_hash" type="password" class="form-control"
+                                   placeholder="Deixe em branco para manter a senha atual" />
+                            <span asp-validation-for="senha_hash" class="text-danger"></span>
+                            <div class="form-text">Deixe em branco para manter a senha atual.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="role" class="form-label">
+                                <i class="fas fa-user-tag"></i> Perfil
+                            </label>
+                            <select asp-for="role" class="form-select">
+                                <option value="Adm">Administrador</option>
+                                <option value="Gerente">Gerente</option>
+                                <option value="Comum">Comum</option>
+                            </select>
+                            <span asp-validation-for="role" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3 form-check form-switch">
+                            <input asp-for="ativo" class="form-check-input" />
+                            <label asp-for="ativo" class="form-check-label">
+                                Usuário ativo
+                            </label>
+                        </div>
+
+                        <div class="card mb-3">
+                            <div class="card-body bg-light">
+                                <h6><i class="fas fa-history"></i> Informações do Cadastro</h6>
+                                <small class="text-muted">
+                                    Cadastrado em: @Model.criado_em.ToString("dd/MM/yyyy 'às' HH:mm")
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="@Url.Action("Index", "Usuarios")" class="btn btn-secondary me-md-2">
+                                <i class="fas fa-times"></i> Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fas fa-save"></i> Atualizar Usuário
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Foco no primeiro campo
+            document.getElementById('nome').focus();
+            document.getElementById('nome').select();
+
+            // Mostrar/ocultar senha
+            const senhaInput = document.getElementById('senha_hash');
+            const toggleSenha = document.createElement('button');
+            toggleSenha.type = 'button';
+            toggleSenha.className = 'btn btn-outline-secondary position-absolute end-0 top-0';
+            toggleSenha.innerHTML = '<i class="fas fa-eye"></i>';
+            toggleSenha.style.marginTop = '31px';
+            toggleSenha.style.marginRight = '10px';
+
+            const senhaGroup = senhaInput.parentElement;
+            senhaGroup.style.position = 'relative';
+            senhaGroup.appendChild(toggleSenha);
+
+            toggleSenha.addEventListener('click', function() {
+                const type = senhaInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                senhaInput.setAttribute('type', type);
+                this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            });
+        });
+    </script>
+}

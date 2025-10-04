@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\3bmod\\Downloads\\SistemaVotacao\\SistemaVotacao\\SistemaVotacao.csproj": {}
+    "C:\\Users\\3bmod\\Desktop\\Sistema_Votacao\\SistemaVotacao\\SistemaVotacao\\SistemaVotacao.csproj": {}
   },
   "projects": {
-    "C:\\Users\\3bmod\\Downloads\\SistemaVotacao\\SistemaVotacao\\SistemaVotacao.csproj": {
+    "C:\\Users\\3bmod\\Desktop\\Sistema_Votacao\\SistemaVotacao\\SistemaVotacao\\SistemaVotacao.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\3bmod\\Downloads\\SistemaVotacao\\SistemaVotacao\\SistemaVotacao.csproj",
+        "projectUniqueName": "C:\\Users\\3bmod\\Desktop\\Sistema_Votacao\\SistemaVotacao\\SistemaVotacao\\SistemaVotacao.csproj",
         "projectName": "SistemaVotacao",
-        "projectPath": "C:\\Users\\3bmod\\Downloads\\SistemaVotacao\\SistemaVotacao\\SistemaVotacao.csproj",
+        "projectPath": "C:\\Users\\3bmod\\Desktop\\Sistema_Votacao\\SistemaVotacao\\SistemaVotacao\\SistemaVotacao.csproj",
         "packagesPath": "C:\\Users\\3bmod\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\3bmod\\Downloads\\SistemaVotacao\\SistemaVotacao\\obj\\",
+        "outputPath": "C:\\Users\\3bmod\\Desktop\\Sistema_Votacao\\SistemaVotacao\\SistemaVotacao\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

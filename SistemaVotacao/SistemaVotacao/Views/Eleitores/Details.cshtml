@@ -1,0 +1,121 @@
+﻿@model SistemaVotacao.Models.Eleitores
+
+@{
+    ViewData["Title"] = "Detalhes do Eleitor";
+    var userRole = Context.Session.GetString("UserRole");
+    var canEdit = userRole == "Adm" || userRole == "Gerente";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0"><i class="fas fa-user"></i> @ViewData["Title"]</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-2 text-center">
+                            <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center"
+                                 style="width: 80px; height: 80px;">
+                                <i class="fas fa-user fa-2x"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <h3 class="text-primary">@Model.nome</h3>
+                            <p class="text-muted mb-0">ID: #@Model.id_eleitor</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-header bg-light">
+                                    <h6 class="mb-0"><i class="fas fa-id-card"></i> Informações Pessoais</h6>
+                                </div>
+                                <div class="card-body">
+                                    <dl class="row">
+                                        <dt class="col-sm-4">Nome:</dt>
+                                        <dd class="col-sm-8">@Model.nome</dd>
+
+                                        <dt class="col-sm-4">Título Eleitoral:</dt>
+                                        <dd class="col-sm-8">
+                                            <span class="badge bg-secondary">@Model.titulo_eleitoral</span>
+                                        </dd>
+
+                                        <dt class="col-sm-4">Data de Cadastro:</dt>
+                                        <dd class="col-sm-8">
+                                            <i class="fas fa-calendar text-muted"></i>
+                                            @Model.criado_em.ToString("dd/MM/yyyy")
+                                        </dd>
+
+                                        <dt class="col-sm-4">Hora de Cadastro:</dt>
+                                        <dd class="col-sm-8">
+                                            <i class="fas fa-clock text-muted"></i>
+                                            @Model.criado_em.ToString("HH:mm")
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-header bg-light">
+                                    <h6 class="mb-0"><i class="fas fa-chart-bar"></i> Estatísticas</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <div class="mb-3">
+                                            <i class="fas fa-vote-yea fa-2x text-success mb-2"></i>
+                                            <h5 id="statusVoto">Verificando...</h5>
+                                            <small class="text-muted">Status do Voto</small>
+                                        </div>
+                                        <div class="mb-3">
+                                            <i class="fas fa-user-tag fa-2x text-primary mb-2"></i>
+                                            <h5 id="statusUsuario">Verificando...</h5>
+                                            <small class="text-muted">Status de Usuário</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a href="@Url.Action("Index", "Eleitores")" class="btn btn-secondary me-md-2">
+                                    <i class="fas fa-arrow-left"></i> Voltar para Lista
+                                </a>
+
+                                @if (canEdit)
+                                {
+                                    <a href="@Url.Action("Edit", "Eleitores", new { id = Model.id_eleitor })" class="btn btn-warning me-md-2">
+                                        <i class="fas fa-edit"></i> Editar Eleitor
+                                    </a>
+                                }
+
+                                <a href="@Url.Action("Index", "Home")" class="btn btn-outline-primary">
+                                    <i class="fas fa-home"></i> Página Inicial
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simular verificação de status (em um sistema real, faria requisições AJAX)
+            setTimeout(() => {
+                document.getElementById('statusVoto').innerHTML = '<span class="badge bg-success">Pode Votar</span>';
+                document.getElementById('statusUsuario').innerHTML = '<span class="badge bg-info">Eleitor Básico</span>';
+            }, 1000);
+        });
+    </script>
+}

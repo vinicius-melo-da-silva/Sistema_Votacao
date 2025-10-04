@@ -1,0 +1,123 @@
+﻿@model SistemaVotacao.Models.Usuario
+
+@{
+    ViewData["Title"] = "Cadastrar Usuário";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0"><i class="fas fa-user-plus"></i> @ViewData["Title"]</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="nome" class="form-label">
+                                <i class="fas fa-user"></i> Nome Completo
+                            </label>
+                            <input asp-for="nome" class="form-control"
+                                   placeholder="Digite o nome completo do usuário" />
+                            <span asp-validation-for="nome" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="titulo_eleitoral" class="form-label">
+                                <i class="fas fa-id-card"></i> Título Eleitoral
+                            </label>
+                            <input asp-for="titulo_eleitoral" class="form-control"
+                                   placeholder="Digite o título eleitoral" />
+                            <span asp-validation-for="titulo_eleitoral" class="text-danger"></span>
+                            <div class="form-text">
+                                O título eleitoral deve estar pré-cadastrado na tabela de eleitores.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="senha_hash" class="form-label">
+                                <i class="fas fa-lock"></i> Senha
+                            </label>
+                            <input asp-for="senha_hash" type="password" class="form-control"
+                                   placeholder="Digite a senha" />
+                            <span asp-validation-for="senha_hash" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="role" class="form-label">
+                                <i class="fas fa-user-tag"></i> Perfil
+                            </label>
+                            <select asp-for="role" class="form-select">
+                                <option value="">Selecione um perfil</option>
+                                <option value="Adm">Administrador</option>
+                                <option value="Gerente">Gerente</option>
+                                <option value="Comum">Comum</option>
+                            </select>
+                            <span asp-validation-for="role" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3 form-check form-switch">
+                            <input asp-for="ativo" class="form-check-input" checked />
+                            <label asp-for="ativo" class="form-check-label">
+                                Usuário ativo
+                            </label>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i>
+                            <strong>Informações sobre os perfis:</strong>
+                            <ul class="mb-0 mt-2">
+                                <li><strong>Administrador:</strong> Acesso completo a todas as funcionalidades</li>
+                                <li><strong>Gerente:</strong> Pode gerenciar eleitores e candidatos</li>
+                                <li><strong>Comum:</strong> Pode apenas votar e consultar</li>
+                            </ul>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="@Url.Action("Index", "Usuarios")" class="btn btn-secondary me-md-2">
+                                <i class="fas fa-times"></i> Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Cadastrar Usuário
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Foco no primeiro campo
+            document.getElementById('nome').focus();
+
+            // Mostrar/ocultar senha
+            const senhaInput = document.getElementById('senha_hash');
+            const toggleSenha = document.createElement('button');
+            toggleSenha.type = 'button';
+            toggleSenha.className = 'btn btn-outline-secondary position-absolute end-0 top-0';
+            toggleSenha.innerHTML = '<i class="fas fa-eye"></i>';
+            toggleSenha.style.marginTop = '31px';
+            toggleSenha.style.marginRight = '10px';
+
+            const senhaGroup = senhaInput.parentElement;
+            senhaGroup.style.position = 'relative';
+            senhaGroup.appendChild(toggleSenha);
+
+            toggleSenha.addEventListener('click', function() {
+                const type = senhaInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                senhaInput.setAttribute('type', type);
+                this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            });
+        });
+    </script>
+}

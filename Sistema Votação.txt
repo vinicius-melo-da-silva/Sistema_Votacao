@@ -5,6 +5,17 @@
 - Criação a conexão com banco;
 - Criação das models (Eleitores, Candidatos, Usuários, Votos);
 
+03/10
+- Criação da autenticação;
+- Criação das controles (Authm Home, Public e Usuário, Candidatos, Votos);
+- Criação das views;
+
+-- Terminar as viws de Candidatos, Votos
+
+
+
+
+
 
 
  

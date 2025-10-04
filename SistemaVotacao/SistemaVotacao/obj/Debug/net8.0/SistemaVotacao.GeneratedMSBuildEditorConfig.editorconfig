@@ -9,41 +9,89 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = SistemaVotacao
 build_property.RootNamespace = SistemaVotacao
-build_property.ProjectDir = C:\Users\3bmod\Downloads\SistemaVotacao\SistemaVotacao\
+build_property.ProjectDir = C:\Users\3bmod\Desktop\Sistema_Votacao\SistemaVotacao\SistemaVotacao\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\3bmod\Downloads\SistemaVotacao\SistemaVotacao
+build_property.MSBuildProjectDirectory = C:\Users\3bmod\Desktop\Sistema_Votacao\SistemaVotacao\SistemaVotacao
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/3bmod/Downloads/SistemaVotacao/SistemaVotacao/Views/Home/Index.cshtml]
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Auth/AcessoNegado.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxBY2Vzc29OZWdhZG8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Auth/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Auth/Registrar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxSZWdpc3RyYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Eleitores/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWxlaXRvcmVzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Eleitores/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWxlaXRvcmVzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Eleitores/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWxlaXRvcmVzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Eleitores/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWxlaXRvcmVzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/3bmod/Downloads/SistemaVotacao/SistemaVotacao/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Public/Candidatos.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVibGljXENhbmRpZGF0b3MuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/3bmod/Downloads/SistemaVotacao/SistemaVotacao/Views/Shared/Error.cshtml]
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Public/Eleitores.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVibGljXEVsZWl0b3Jlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Public/Resultado.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVibGljXFJlc3VsdGFkby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/3bmod/Downloads/SistemaVotacao/SistemaVotacao/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/3bmod/Downloads/SistemaVotacao/SistemaVotacao/Views/_ViewImports.cshtml]
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Usuarios/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Usuarios/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Usuarios/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/3bmod/Downloads/SistemaVotacao/SistemaVotacao/Views/_ViewStart.cshtml]
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/3bmod/Downloads/SistemaVotacao/SistemaVotacao/Views/Shared/_Layout.cshtml]
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-ylvecgtg8c

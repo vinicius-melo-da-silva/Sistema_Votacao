@@ -1,0 +1,295 @@
+﻿@model IEnumerable<dynamic>
+
+@{
+    ViewData["Title"] = "Resultado da Eleição";
+    Layout = "_LayoutPublic";
+}
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white text-center">
+                    <h2 class="mb-0"><i class="fas fa-chart-bar"></i> @ViewData["Title"]</h2>
+                    <p class="mb-0 mt-2">Resultados atualizados em tempo real</p>
+                </div>
+                <div class="card-body">
+                    <!-- Resumo Geral -->
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="card bg-primary text-white text-center">
+                                <div class="card-body py-3">
+                                    <h4 class="mb-1" id="totalVotos">0</h4>
+                                    <small>Total de Votos</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-info text-white text-center">
+                                <div class="card-body py-3">
+                                    <h4 class="mb-1" id="totalCandidatos">0</h4>
+                                    <small>Candidatos</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-warning text-white text-center">
+                                <div class="card-body py-3">
+                                    <h4 class="mb-1" id="votosValidos">0</h4>
+                                    <small>Votos Válidos</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-secondary text-white text-center">
+                                <div class="card-body py-3">
+                                    <h4 class="mb-1" id="participacao">0%</h4>
+                                    <small>Participação</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ranking de Candidatos -->
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 class="mb-3"><i class="fas fa-trophy"></i> Ranking dos Candidatos</h4>
+                            
+                            @if (Model != null && Model.Any())
+                            {
+                                int posicao = 1;
+                                foreach (var candidato in Model)
+                                {
+                                    <div class="card mb-3 resultado-candidato" data-percentual="@candidato.percentual">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col-md-1 text-center">
+                                                    <div class="position-badge @(posicao == 1 ? "bg-warning" : posicao == 2 ? "bg-secondary" : posicao == 3 ? "bg-danger" : "bg-light text-dark")">
+                                                        <strong>@posicao°</strong>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 text-center">
+                                                    @if (!string.IsNullOrEmpty(candidato.foto))
+                                                    {
+                                                        <img src="@candidato.foto" class="candidato-foto rounded-circle" alt="@candidato.nome_candidato">
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="candidato-foto-placeholder rounded-circle bg-light d-flex align-items-center justify-content-center">
+                                                            <i class="fas fa-user fa-2x text-muted"></i>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <h5 class="mb-1">@candidato.nome_candidato</h5>
+                                                    <p class="text-muted mb-0">ID: @candidato.id_candidato</p>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="row text-center">
+                                                        <div class="col-6">
+                                                            <h4 class="text-primary mb-0">@candidato.total_votos</h4>
+                                                            <small class="text-muted">Votos</small>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <h4 class="text-success mb-0">@candidato.percentual%</h4>
+                                                            <small class="text-muted">Percentual</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="progress mt-2" style="height: 8px;">
+                                                        <div class="progress-bar bg-success" role="progressbar" 
+                                                             style="width: @candidato.percentual%" 
+                                                             aria-valuenow="@candidato.percentual" aria-valuemin="0" aria-valuemax="100">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    posicao++;
+                                }
+                            }
+                            else
+                            {
+                                <div class="text-center text-muted py-5">
+                                    <i class="fas fa-chart-bar fa-3x mb-3"></i>
+                                    <h4>Nenhum resultado disponível</h4>
+                                    <p>Aguardando a apuração dos votos.</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Gráfico de Resultados -->
+                    <div class="row mt-5">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header bg-light">
+                                    <h5 class="mb-0"><i class="fas fa-chart-pie"></i> Distribuição de Votos</h5>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="graficoResultados" width="400" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header bg-light">
+                                    <h5 class="mb-0"><i class="fas fa-info-circle"></i> Informações</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <small class="text-muted">Última atualização:</small>
+                                        <div id="ultimaAtualizacao">@DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <small class="text-muted">Total de eleitores:</small>
+                                        <div id="totalEleitores">Carregando...</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <small class="text-muted">Status da eleição:</small>
+                                        <div><span class="badge bg-success">Em andamento</span></div>
+                                    </div>
+                                    <button class="btn btn-outline-primary btn-sm w-100" onclick="atualizarResultados()">
+                                        <i class="fas fa-sync-alt"></i> Atualizar Resultados
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            atualizarEstatisticas();
+            inicializarGrafico();
+
+            // Atualizar a cada 30 segundos
+            setInterval(atualizarResultados, 30000);
+        });
+
+        function atualizarEstatisticas() {
+            // Simular cálculo de estatísticas
+            const candidatos = document.querySelectorAll('.resultado-candidato');
+            let totalVotos = 0;
+            
+            candidatos.forEach(candidato => {
+                const votos = parseInt(candidato.querySelector('.text-primary').textContent);
+                totalVotos += votos;
+            });
+
+            document.getElementById('totalVotos').textContent = totalVotos;
+            document.getElementById('totalCandidatos').textContent = candidatos.length;
+            document.getElementById('votosValidos').textContent = totalVotos;
+            document.getElementById('participacao').textContent = Math.round((totalVotos / 1000) * 100) + '%';
+            document.getElementById('totalEleitores').textContent = '1.000'; // Simulado
+        }
+
+        function inicializarGrafico() {
+            const ctx = document.getElementById('graficoResultados').getContext('2d');
+            const candidatos = document.querySelectorAll('.resultado-candidato');
+            
+            const labels = [];
+            const data = [];
+            const backgroundColors = [
+                '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', 
+                '#9966FF', '#FF9F40', '#FF6384', '#C9CBCF'
+            ];
+
+            candidatos.forEach((candidato, index) => {
+                const nome = candidato.querySelector('h5').textContent;
+                const votos = parseInt(candidato.querySelector('.text-primary').textContent);
+                
+                labels.push(nome.length > 15 ? nome.substring(0, 15) + '...' : nome);
+                data.push(votos);
+            });
+
+            if (data.length === 0) {
+                document.getElementById('graficoResultados').style.display = 'none';
+                return;
+            }
+
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: backgroundColors,
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw || 0;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = Math.round((value / total) * 100);
+                                    return `${label}: ${value} votos (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function atualizarResultados() {
+            // Simular atualização
+            document.getElementById('ultimaAtualizacao').textContent = new Date().toLocaleString('pt-BR');
+            
+            // Em um sistema real, faria uma requisição AJAX para atualizar os dados
+            location.reload();
+        }
+    </script>
+
+    <style>
+        .position-badge {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .candidato-foto {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+        }
+
+        .candidato-foto-placeholder {
+            width: 80px;
+            height: 80px;
+            border: 2px solid #dee2e6;
+        }
+
+        .resultado-candidato {
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .resultado-candidato:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .progress {
+            background-color: #e9ecef;
+        }
+    </style>
+}

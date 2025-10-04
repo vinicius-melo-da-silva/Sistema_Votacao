@@ -1,0 +1,163 @@
+﻿@model IEnumerable<SistemaVotacao.Models.Eleitores>
+
+@{
+    ViewData["Title"] = "Lista de Eleitores";
+    
+    Layout = "_LayoutPublic";
+}
+
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white text-center">
+                    <h2 class="mb-0"><i class="fas fa-users"></i> @ViewData["Title"]</h2>
+                    <p class="mb-0 mt-2">Eleitores cadastrados no sistema</p>
+                </div>
+                <div class="card-body">
+                    <!-- Filtros -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input type="text" id="searchInput" class="form-control" placeholder="Buscar por nome ou título...">
+                                <button class="btn btn-outline-secondary" type="button" id="btnSearch">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                                <button class="btn btn-outline-secondary" type="button" id="btnClearSearch">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <small class="text-muted">
+                                <i class="fas fa-info-circle"></i>
+                                Total de eleitores: <strong id="totalEleitores">@Model.Count()</strong>
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- Tabela de Eleitores -->
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Título Eleitoral</th>
+                                    <th>Data de Cadastro</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyEleitores">
+                                @foreach (var eleitor in Model)
+                                {
+                                    <tr class="eleitor-row">
+                                        <td>@eleitor.id_eleitor</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar-placeholder bg-primary rounded-circle me-3 d-flex align-items-center justify-content-center">
+                                                    <i class="fas fa-user text-white"></i>
+                                                </div>
+                                                <div>@eleitor.nome</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-secondary">@eleitor.titulo_eleitoral</span>
+                                        </td>
+                                        <td>
+                                            <small>
+                                                <i class="fas fa-calendar text-muted me-1"></i>
+                                                @eleitor.criado_em.ToString("dd/MM/yyyy")
+                                            </small>
+                                            <br>
+                                            <small class="text-muted">
+                                                <i class="fas fa-clock text-muted me-1"></i>
+                                                @eleitor.criado_em.ToString("HH:mm")
+                                            </small>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    @if (!Model.Any())
+                    {
+                        <div class="text-center text-muted py-5">
+                            <i class="fas fa-users fa-3x mb-3"></i>
+                            <h4>Nenhum eleitor cadastrado</h4>
+                            <p>Aguardando o cadastro dos eleitores.</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const btnSearch = document.getElementById('btnSearch');
+            const btnClearSearch = document.getElementById('btnClearSearch');
+            const eleitorRows = document.querySelectorAll('.eleitor-row');
+
+            function aplicarFiltro() {
+                const filter = searchInput.value.toLowerCase();
+                let totalVisiveis = 0;
+
+                eleitorRows.forEach(row => {
+                    const nome = row.cells[1].textContent.toLowerCase();
+                    const titulo = row.cells[2].textContent.toLowerCase();
+
+                    if (nome.includes(filter) || titulo.includes(filter)) {
+                        row.style.display = '';
+                        totalVisiveis++;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                document.getElementById('totalEleitores').textContent = totalVisiveis;
+            }
+
+            btnSearch.addEventListener('click', aplicarFiltro);
+
+            searchInput.addEventListener('keyup', aplicarFiltro);
+
+            btnClearSearch.addEventListener('click', function() {
+                searchInput.value = '';
+                aplicarFiltro();
+            });
+
+            // Inicializar contador
+            document.getElementById('totalEleitores').textContent = eleitorRows.length;
+        });
+    </script>
+
+    <style>
+        .avatar-placeholder {
+            width: 40px;
+            height: 40px;
+        }
+
+        .table th {
+            border-top: none;
+            font-weight: 600;
+            background-color: #f8f9fa;
+        }
+
+        .eleitor-row {
+            transition: background-color 0.2s ease;
+        }
+
+            .eleitor-row:hover {
+                background-color: #f8f9fa;
+            }
+
+        .badge {
+            font-family: monospace;
+        }
+    </style>
+}
