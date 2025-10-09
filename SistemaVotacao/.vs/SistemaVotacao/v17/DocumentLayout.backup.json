@@ -5,10 +5,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{59B407B9-B23E-47D2-BAEA-E820610D25C6}|SistemaVotacao\\SistemaVotacao.csproj|c:\\users\\3bmod\\desktop\\sistema_votacao\\sistemavotacao\\sistemavotacao\\controllers\\votoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59B407B9-B23E-47D2-BAEA-E820610D25C6}|SistemaVotacao\\SistemaVotacao.csproj|solutionrelative:sistemavotacao\\controllers\\votoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{59B407B9-B23E-47D2-BAEA-E820610D25C6}|SistemaVotacao\\SistemaVotacao.csproj|c:\\users\\3bmod\\desktop\\sistema_votacao\\sistemavotacao\\sistemavotacao\\controllers\\candidatoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{59B407B9-B23E-47D2-BAEA-E820610D25C6}|SistemaVotacao\\SistemaVotacao.csproj|solutionrelative:sistemavotacao\\controllers\\candidatoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -28,22 +24,9 @@
               "RelativeDocumentMoniker": "SistemaVotacao\\Controllers\\VotosController.cs",
               "ToolTip": "C:\\Users\\3bmod\\Desktop\\Sistema_Votacao\\SistemaVotacao\\SistemaVotacao\\Controllers\\VotosController.cs",
               "RelativeToolTip": "SistemaVotacao\\Controllers\\VotosController.cs",
-              "ViewState": "AgIAAOIAAAAAAAAAAAAswKwBAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcCAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-04T00:30:19.469Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CandidatosController.cs",
-              "DocumentMoniker": "C:\\Users\\3bmod\\Desktop\\Sistema_Votacao\\SistemaVotacao\\SistemaVotacao\\Controllers\\CandidatosController.cs",
-              "RelativeDocumentMoniker": "SistemaVotacao\\Controllers\\CandidatosController.cs",
-              "ToolTip": "C:\\Users\\3bmod\\Desktop\\Sistema_Votacao\\SistemaVotacao\\SistemaVotacao\\Controllers\\CandidatosController.cs",
-              "RelativeToolTip": "SistemaVotacao\\Controllers\\CandidatosController.cs",
-              "ViewState": "AgIAAAwBAAAAAAAAAAAAwCgBAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-04T00:29:13.246Z",
+              "WhenOpened": "2025-10-09T23:20:18.553Z",
               "EditorCaption": ""
             }
           ]

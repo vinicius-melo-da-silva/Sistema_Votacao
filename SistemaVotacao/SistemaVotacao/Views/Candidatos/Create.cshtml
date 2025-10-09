@@ -1,0 +1,51 @@
+﻿@model SistemaVotacao.Models.Candidatos
+
+@{
+    ViewData["Title"] = "Novo Candidato";
+}
+
+<h1>Cadastrar Candidato</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="nome" class="control-label"></label>
+                <input asp-for="nome" class="form-control" />
+                <span asp-validation-for="nome" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="cpf" class="control-label"></label>
+                <input asp-for="cpf" class="form-control" />
+                <span asp-validation-for="cpf" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="titulo_eleitoral" class="control-label"></label>
+                <input asp-for="titulo_eleitoral" class="form-control" />
+                <span asp-validation-for="titulo_eleitoral" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="foto" class="control-label"></label>
+                <input type="file" name="foto" class="form-control-file" accept="image/*" />
+                <span asp-validation-for="foto" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Cadastrar</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

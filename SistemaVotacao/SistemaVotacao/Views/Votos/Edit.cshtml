@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Editar Voto";
+    var voto = ViewBag.Voto as dynamic;
+    var candidatos = ViewBag.Candidatos as List<SistemaVotacao.Models.Candidatos>;
+}
+
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" name="id" value="@voto.id_voto" />
+
+        <div class="form-group">
+            <label>Eleitor:</label>
+            <input type="text" class="form-control" value="@voto.nome_eleitor (@voto.titulo_eleitor)" readonly />
+        </div>
+
+        <div class="form-group">
+            <label>Data Original do Voto:</label>
+            <input type="text" class="form-control" value="@voto.data_voto.ToString("dd/MM/yyyy HH:mm")" readonly />
+        </div>
+
+        <div class="form-group">
+            <label for="idCandidatoNovo">Novo Candidato:</label>
+            <select name="idCandidatoNovo" class="form-control" required>
+                @foreach (var candidato in candidatos)
+                {
+                    <option value="@candidato.id_candidato"
+                            selected="@(candidato.id_candidato == voto.id_candidato)">
+                        @candidato.nome
+                    </option>
+                }
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-warning">Atualizar Voto</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

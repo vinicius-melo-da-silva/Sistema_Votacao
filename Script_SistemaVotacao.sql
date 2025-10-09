@@ -650,3 +650,10 @@ BEGIN
     ORDER BY total_votos DESC;
 END //
 DELIMITER ;
+
+
+select * from Eleitores;
+select * from Usuarios;
+select * from Votos;
+select * from Candidatos;
+

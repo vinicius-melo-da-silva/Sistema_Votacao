@@ -21,9 +21,8 @@ namespace SistemaVotacao.Controllers
         {
             var userRole = HttpContext.Session.GetString("UserRole");
             var userId = HttpContext.Session.GetInt32("UserId");
-            var tituloEleitoral = HttpContext.Session.GetString("TituloEleitoral");
 
-            // Para usuários comuns, mostrar apenas seu voto
+            // Para usuários comuns, redirecionar para MeuVoto
             if (userRole == "Comum")
             {
                 return RedirectToAction("MeuVoto");
@@ -223,7 +222,6 @@ namespace SistemaVotacao.Controllers
         {
             var userId = HttpContext.Session.GetInt32("UserId");
             var tituloEleitoral = HttpContext.Session.GetString("TituloEleitoral");
-            var userName = HttpContext.Session.GetString("UserName");
 
             try
             {
@@ -297,12 +295,39 @@ namespace SistemaVotacao.Controllers
             }
         }
 
-        // EDIÇÃO DE VOTO - Apenas Admin e Gerente
-        [SessionAuthorize(RoleAnyOf = "Adm,Gerente")]
+        // EDIÇÃO DE VOTO - Apenas usuário comum pode editar seu próprio voto
         public IActionResult Edit(int id)
         {
+            var userRole = HttpContext.Session.GetString("UserRole");
+            var userId = HttpContext.Session.GetInt32("UserId");
+            var tituloEleitoral = HttpContext.Session.GetString("TituloEleitoral");
+
             try
             {
+                // Obter id_eleitor do usuário logado
+                int? idEleitor = null;
+                using (var connection = new MySqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    var query = "SELECT id_eleitor FROM Eleitores WHERE titulo_eleitoral = @tituloEleitoral";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@tituloEleitoral", tituloEleitoral);
+                        var result = command.ExecuteScalar();
+                        if (result != null)
+                        {
+                            idEleitor = Convert.ToInt32(result);
+                        }
+                    }
+                }
+
+                if (!idEleitor.HasValue)
+                {
+                    TempData["Error"] = "Eleitor não encontrado!";
+                    return RedirectToAction("MeuVoto");
+                }
+
+                // Buscar o voto específico
                 using (var connection = new MySqlConnection(_connectionString))
                 {
                     connection.Open();
@@ -317,10 +342,19 @@ namespace SistemaVotacao.Controllers
                         {
                             if (reader.Read())
                             {
+                                var votoIdEleitor = reader.GetInt32("id_eleitor");
+
+                                // Verificar se o usuário é o dono do voto
+                                if (userRole == "Comum" && votoIdEleitor != idEleitor.Value)
+                                {
+                                    TempData["Error"] = "Você só pode editar seu próprio voto!";
+                                    return RedirectToAction("MeuVoto");
+                                }
+
                                 var voto = new
                                 {
                                     id_voto = reader.GetInt32("id_voto"),
-                                    id_eleitor = reader.GetInt32("id_eleitor"),
+                                    id_eleitor = votoIdEleitor,
                                     nome_eleitor = reader.GetString("nome_eleitor"),
                                     titulo_eleitor = reader.GetString("titulo_eleitor"),
                                     id_candidato = reader.GetInt32("id_candidato"),
@@ -354,6 +388,7 @@ namespace SistemaVotacao.Controllers
 
                                 ViewBag.Candidatos = candidatos;
                                 ViewBag.Voto = voto;
+                                ViewBag.UserRole = userRole;
                                 return View();
                             }
                         }
@@ -369,14 +404,58 @@ namespace SistemaVotacao.Controllers
         }
 
         [HttpPost]
-        [SessionAuthorize(RoleAnyOf = "Adm,Gerente")]
         public IActionResult Edit(int id, int idCandidatoNovo)
         {
+            var userRole = HttpContext.Session.GetString("UserRole");
+            var userId = HttpContext.Session.GetInt32("UserId");
+            var tituloEleitoral = HttpContext.Session.GetString("TituloEleitoral");
+
             try
             {
+                // Verificar permissões
+                if (userRole == "Adm" || userRole == "Gerente")
+                {
+                    TempData["Error"] = "Administradores e Gerentes não podem editar votos!";
+                    return RedirectToAction("Index");
+                }
+
+                // Obter id_eleitor do usuário logado
+                int? idEleitor = null;
                 using (var connection = new MySqlConnection(_connectionString))
                 {
                     connection.Open();
+                    var query = "SELECT id_eleitor FROM Eleitores WHERE titulo_eleitoral = @tituloEleitoral";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@tituloEleitoral", tituloEleitoral);
+                        var result = command.ExecuteScalar();
+                        if (result != null)
+                        {
+                            idEleitor = Convert.ToInt32(result);
+                        }
+                    }
+
+                    if (!idEleitor.HasValue)
+                    {
+                        TempData["Error"] = "Eleitor não encontrado!";
+                        return RedirectToAction("MeuVoto");
+                    }
+
+                    // Verificar se o voto pertence ao usuário
+                    var verificaVotoQuery = "SELECT id_eleitor FROM Votos WHERE id_voto = @idVoto";
+                    using (var command = new MySqlCommand(verificaVotoQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@idVoto", id);
+                        var idEleitorVoto = command.ExecuteScalar();
+
+                        if (idEleitorVoto == null || Convert.ToInt32(idEleitorVoto) != idEleitor.Value)
+                        {
+                            TempData["Error"] = "Você só pode editar seu próprio voto!";
+                            return RedirectToAction("MeuVoto");
+                        }
+                    }
+
+                    // Editar o voto
                     using (var command = new MySqlCommand("EditarVoto", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
@@ -388,7 +467,7 @@ namespace SistemaVotacao.Controllers
                 }
 
                 TempData["Success"] = "Voto atualizado com sucesso!";
-                return RedirectToAction("Index");
+                return RedirectToAction("MeuVoto");
             }
             catch (Exception ex)
             {
@@ -397,16 +476,60 @@ namespace SistemaVotacao.Controllers
             }
         }
 
-        // EXCLUSÃO DE VOTO - Apenas Admin e Gerente
+        // EXCLUSÃO DE VOTO - Apenas usuário comum pode excluir seu próprio voto
         [HttpPost]
-        [SessionAuthorize(RoleAnyOf = "Adm,Gerente")]
         public IActionResult Delete(int id)
         {
+            var userRole = HttpContext.Session.GetString("UserRole");
+            var userId = HttpContext.Session.GetInt32("UserId");
+            var tituloEleitoral = HttpContext.Session.GetString("TituloEleitoral");
+
             try
             {
+                // Verificar permissões
+                if (userRole == "Adm" || userRole == "Gerente")
+                {
+                    TempData["Error"] = "Administradores e Gerentes não podem excluir votos!";
+                    return RedirectToAction("Index");
+                }
+
+                // Obter id_eleitor do usuário logado
+                int? idEleitor = null;
                 using (var connection = new MySqlConnection(_connectionString))
                 {
                     connection.Open();
+                    var query = "SELECT id_eleitor FROM Eleitores WHERE titulo_eleitoral = @tituloEleitoral";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@tituloEleitoral", tituloEleitoral);
+                        var result = command.ExecuteScalar();
+                        if (result != null)
+                        {
+                            idEleitor = Convert.ToInt32(result);
+                        }
+                    }
+
+                    if (!idEleitor.HasValue)
+                    {
+                        TempData["Error"] = "Eleitor não encontrado!";
+                        return RedirectToAction("MeuVoto");
+                    }
+
+                    // Verificar se o voto pertence ao usuário
+                    var verificaVotoQuery = "SELECT id_eleitor FROM Votos WHERE id_voto = @idVoto";
+                    using (var command = new MySqlCommand(verificaVotoQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@idVoto", id);
+                        var idEleitorVoto = command.ExecuteScalar();
+
+                        if (idEleitorVoto == null || Convert.ToInt32(idEleitorVoto) != idEleitor.Value)
+                        {
+                            TempData["Error"] = "Você só pode excluir seu próprio voto!";
+                            return RedirectToAction("MeuVoto");
+                        }
+                    }
+
+                    // Excluir o voto
                     using (var command = new MySqlCommand("ExcluirVoto", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
@@ -417,12 +540,12 @@ namespace SistemaVotacao.Controllers
                 }
 
                 TempData["Success"] = "Voto excluído com sucesso!";
-                return RedirectToAction("Index");
+                return RedirectToAction("MeuVoto");
             }
             catch (Exception ex)
             {
                 TempData["Error"] = "Erro ao excluir voto: " + ex.Message;
-                return RedirectToAction("Index");
+                return RedirectToAction("MeuVoto");
             }
         }
     }

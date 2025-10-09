@@ -1,0 +1,39 @@
+﻿@model SistemaVotacao.Models.Votos
+@{
+    ViewData["Title"] = "Registrar Voto";
+    var candidatos = ViewBag.Candidatos as List<SistemaVotacao.Models.Candidatos>;
+}
+
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+
+    @if (TempData["Warning"] != null)
+    {
+        <div class="alert alert-warning">@TempData["Warning"]</div>
+    }
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">@ViewBag.Error</div>
+    }
+
+    <div class="row">
+        @foreach (var candidato in candidatos)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    @if (!string.IsNullOrEmpty(candidato.foto))
+                    {
+                        <img src="@candidato.foto" class="card-img-top" alt="Foto de @candidato.nome">
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@candidato.nome</h5>
+                        <form asp-action="Create" method="post">
+                            <input type="hidden" name="idCandidato" value="@candidato.id_candidato" />
+                            <button type="submit" class="btn btn-primary btn-block">Votar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

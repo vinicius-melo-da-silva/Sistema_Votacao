@@ -1,0 +1,36 @@
+﻿@model dynamic
+@{
+    ViewData["Title"] = "Meu Voto";
+}
+
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">@ViewBag.Error</div>
+    }
+
+    @if (Model != null)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Seu Voto Registrado</h5>
+                <p><strong>Candidato:</strong> @Model.nome_candidato</p>
+                <p><strong>Data do Voto:</strong> @Model.data_voto.ToString("dd/MM/yyyy HH:mm")</p>
+                <p><strong>Título Eleitoral:</strong> @Model.titulo_eleitor</p>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            <p>Você ainda não registrou seu voto.</p>
+            <a href="@Url.Action("Create")" class="btn btn-primary">Votar Agora</a>
+        </div>
+    }
+</div>

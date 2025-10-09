@@ -1,0 +1,55 @@
+﻿@model List<dynamic>
+@{
+    ViewData["Title"] = "Gerenciar Votos";
+    var userRole = ViewBag.UserRole as string;
+}
+
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID Voto</th>
+                    <th>Eleitor</th>
+                    <th>Título Eleitor</th>
+                    <th>Candidato Votado</th>
+                    <th>Data do Voto</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var voto in Model)
+                {
+                    <tr>
+                        <td>@voto.id_voto</td>
+                        <td>@voto.nome_eleitor</td>
+                        <td>@voto.titulo_eleitor</td>
+                        <td>@voto.nome_candidato</td>
+                        <td>@voto.data_voto.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>
+                            <a href="@Url.Action("Edit", new { id = voto.id_voto })" class="btn btn-warning btn-sm">Editar</a>
+                            <form asp-action="Delete" method="post" class="d-inline">
+                                <input type="hidden" name="id" value="@voto.id_voto" />
+                                <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Tem certeza que deseja excluir este voto?')">
+                                    Excluir
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

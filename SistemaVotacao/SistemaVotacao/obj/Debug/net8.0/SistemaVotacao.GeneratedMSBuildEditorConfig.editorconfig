@@ -32,6 +32,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxSZWdpc3RyYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Candidatos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FuZGlkYXRvc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Candidatos/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FuZGlkYXRvc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Candidatos/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FuZGlkYXRvc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Candidatos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FuZGlkYXRvc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Eleitores/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWxlaXRvcmVzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -82,6 +98,22 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Usuarios/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Votos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVm90b3NcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Votos/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVm90b3NcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Votos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVm90b3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/Votos/MeuVoto.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVm90b3NcTWV1Vm90by5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/3bmod/Desktop/Sistema_Votacao/SistemaVotacao/SistemaVotacao/Views/_ViewImports.cshtml]

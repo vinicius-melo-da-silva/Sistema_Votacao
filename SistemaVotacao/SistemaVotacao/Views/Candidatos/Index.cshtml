@@ -1,0 +1,64 @@
+﻿@model IEnumerable<SistemaVotacao.Models.Candidatos>
+
+@{
+    ViewData["Title"] = "Candidatos";
+}
+
+<h1>Lista de Candidatos</h1>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+@if (User.IsInRole("Adm") || User.IsInRole("Gerente"))
+{
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Novo Candidato</a>
+    </p>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Foto</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Título Eleitoral</th>
+            <th>Data de Cadastro</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.foto))
+                    {
+                        <img src="@item.foto" alt="Foto" class="img-thumbnail" style="max-width: 80px;" />
+                    }
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.nome)</td>
+                <td>@Html.DisplayFor(modelItem => item.cpf)</td>
+                <td>@Html.DisplayFor(modelItem => item.titulo_eleitoral)</td>
+                <td>@Html.DisplayFor(modelItem => item.criado_em)</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.id_candidato" class="btn btn-info btn-sm">Detalhes</a>
+                    @if (User.IsInRole("Adm") || User.IsInRole("Gerente"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.id_candidato" class="btn btn-warning btn-sm">Editar</a>
+                        <form asp-action="Delete" method="post" class="d-inline">
+                            <input type="hidden" name="id" value="@item.id_candidato" />
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
